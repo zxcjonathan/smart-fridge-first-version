@@ -1,0 +1,50 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+*.log
+
+# Virtual Environment
+venv/
+env/
+ENV/
+
+# Django
+*.sqlite3
+*.db
+db.sqlite3
+local_settings.py
+*.pyc
+
+# Environment variables
+.env
+
+# VSCode settings
+.vscode/
+
+# Mac OS
+.DS_Store
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# PyCharm
+.idea/
+
+# Static/media files (if dynamically generated)
+staticfiles/
+media/
+
+# Node (if frontend uses npm)
+node_modules/
+dist/
+build/
+
+# Backup
+*.bak
+*.swp
+
+# Custom or local
+*.secret
