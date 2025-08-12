@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>智慧料理助手</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fa-solid fa-robot"></i>智慧料理助手</h1>
+            <p>上傳您冰箱的照片，來為您創造專屬料理！</p>
+        </header>
+
+        <main>
+            <section id="upload-section" class="card active">
+                <h2>步驟 1: 開啟您的智慧冰箱</h2>
+                <div id="image-uploader">
+                    <div class="upload-slot">
+                        <input type="file" id="file1" class="file-input" accept="image/*" hidden>
+                        <label for="file1" class="upload-label">+</label>
+                        <img id="preview1" class="image-preview">
+                    </div>
+                    <div class="upload-slot">
+                        <input type="file" id="file2" class="file-input" accept="image/*" hidden>
+                        <label for="file2" class="upload-label">+</label>
+                        <img id="preview2" class="image-preview">
+                    </div>
+                    <div class="upload-slot">
+                        <input type="file" id="file3" class="file-input" accept="image/*" hidden>
+                        <label for="file3" class="upload-label">+</label>
+                        <img id="preview3" class="image-preview">
+                    </div>
+                </div>
+                <button id="identify-btn" class="btn btn-primary"><i class="fa-solid fa-magnifying-glass"></i> 辨識食材</button>
+            </section>
+
+            <section id="confirm-section" class="card">
+                <h2>步驟 2: 確認並添加食材</h2>
+                <div class="ingredient-selection-container">
+                    <div class="identified-ingredients">
+                        <h3><i class="fa-solid fa-camera"></i> 冰箱裡辨識出來的有這些：</h3>
+                        <div id="ingredient-checklist"></div>
+                    </div>
+                    <div class="extra-ingredients">
+                        <h3><i class="fa-solid fa-plus"></i> 若還想加點什麼，可以輸入 (1-10樣)(用逗號或空白間隔)</h3>
+                        <textarea id="extra-ingredients-input" placeholder="輸入食材，用逗號或空白分隔..."></textarea>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button id="back-to-upload-btn" class="btn btn-secondary"><i class="fa-solid fa-arrow-left"></i> 上一步</button>
+                    <button id="generate-btn" class="btn btn-primary"><i class="fa-solid fa-wand-magic-sparkles"></i> 生成三道驚喜食譜</button>
+                </div>
+            </section>
+
+            <section id="recipe-results-section" class="card">
+                <h2><i class="fa-solid fa-utensils"></i> 為您推薦的美味食譜</h2>
+                <div id="recipe-results-grid">
+                </div>
+                <button id="back-to-confirm-btn" class="btn btn-secondary"><i class="fa-solid fa-arrow-left"></i> 返回食材選擇</button>
+            </section>
+
+            <div id="loader" class="loader-overlay">
+                <div class="loader"></div>
+                <p id="loader-text">主廚正在為您分析...</p>
+            </div>
+        </main>
+        <footer>
+            <p></p>
+        </footer>
+    </div>
+
+    <div id="imageModal" class="modal">
+      <span class="close-button">×</span>
+      <img class="modal-content" id="img01">
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

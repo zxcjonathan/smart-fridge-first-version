@@ -1,0 +1,577 @@
+:root {
+    /* --- 全站配色與變數設定 --- */
+    --primary-color: #007bff; /* 主要色，按鈕與標題使用 */
+    --secondary-color: #5e35b1; /* 次要紫色，影音按鈕使用 */
+    --background-color: #f8f9fa; /* 網頁背景色 */
+    --card-background: #ffffff; /* 卡片背景色 */
+    --text-color: #212529; /* 主要文字色 */
+    --light-text-color: #6c757d; /* 輔助文字色 */
+    --border-color: #dee2e6; /* 邊框顏色 */
+    --font-family: 'Noto Sans TC', sans-serif; /* 中文系統字型 */
+}
+
+body {
+    /* 全域排版設定 */
+    font-family: var(--font-family);
+    background-color: var(--background-color);
+    margin: 0;
+    padding: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+}
+
+.container {
+    /* 中央內容容器 */
+    width: 100%;
+    max-width: 900px;
+}
+
+header {
+    /* 上方標題區置中 */
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+header h1 {
+    /* 標題文字設定 */
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+header p {
+    /* 小標文字樣式 */
+    font-size: 1.1rem;
+    color: var(--light-text-color);
+}
+
+.card {
+    /* 卡片樣式預設為隱藏，用動畫淡入 */
+    background: var(--card-background);
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+    padding: 2.5rem;
+    margin-bottom: 2rem;
+    display: none;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.card.active {
+    /* 加入 active 後顯示卡片 */
+    display: block;
+}
+
+.card h2 {
+    /* 卡片標題樣式 */
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 2rem;
+    font-weight: 500;
+    color: var(--text-color);
+}
+
+#image-uploader {
+    /* 圖片上傳區使用彈性排版 */
+    display: flex;
+    justify-content: space-around;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+}
+
+.upload-slot {
+    /* 每個上傳區外框 */
+    width: 150px;
+    height: 150px;
+    border: 2px dashed var(--border-color);
+    border-radius: 12px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.upload-slot:hover {
+    /* 滑鼠移入特效 */
+    border-color: var(--primary-color);
+    transform: translateY(-2px);
+}
+
+.upload-label {
+    /* 加號圖示置中 */
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3rem;
+    color: var(--border-color);
+    cursor: pointer;
+}
+
+.image-preview {
+    /* 上傳後預覽圖片 */
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: none;
+}
+
+.btn {
+    /* 全站按鈕樣式 */
+    display: block;
+    width: 100%;
+    padding: 1rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 1rem;
+}
+
+.btn-primary {
+    /* 主要按鈕漸層色 */
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    color: white;
+}
+
+.btn-secondary {
+    /* 次要按鈕樣式 */
+    background-color: #6c757d;
+    color: white;
+    margin-top: 1rem;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+    box-shadow: 0 4px 12px rgba(108, 117, 125, 0.4);
+}
+
+.btn:hover {
+    /* 按鈕滑鼠移入效果 */
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.4);
+}
+
+.button-group {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.button-group .btn {
+    flex: 1;
+    margin-top: 0; /* Override individual button margin-top */
+}
+
+.ingredient-selection-container {
+    /* 食材確認區彈性排版 */
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+.identified-ingredients, .extra-ingredients {
+    /* 子區塊寬度 */
+    flex: 1;
+    min-width: 280px;
+}
+.identified-ingredients h3, .extra-ingredients h3 {
+    /* 小標題色彩 */
+    margin-top: 0;
+    color: var(--primary-color);
+}
+#ingredient-checklist {
+    /* 勾選清單樣式 */
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    max-height: 200px;
+    overflow-y: auto;
+    padding: 0.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+}
+.checklist-item {
+    /* 單行勾選項目排版 */
+    display: flex;
+    align-items: center;
+}
+.checklist-item input[type="checkbox"] {
+    /* 勾選方塊調整 */
+    margin-right: 0.75rem;
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+.checklist-item label {
+    /* 勾選文字 */
+    font-size: 1.1rem;
+    cursor: pointer;
+}
+#extra-ingredients-input {
+    /* 使用者額外輸入欄 */
+    width: 95%;
+    padding: 0.75rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 1rem;
+    height: 100px;
+    resize: vertical;
+}
+
+#recipe-results-grid {
+    /* 食譜列表區段格線排版 */
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+}
+
+.recipe-card {
+    /* 單張食譜卡片 */
+    background: #fff;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+.recipe-card:hover {
+    /* 卡片滑鼠懸停效果 */
+    transform: translateY(-5px);
+    box-shadow: 0 12px 24px rgba(0,0,0,0.1);
+}
+.recipe-card h3 {
+    /* 食譜標題列 */
+    background-color: var(--primary-color);
+    color: white;
+    margin: 0;
+    padding: 1rem 1.5rem;
+    font-size: 1.3rem;
+}
+.recipe-card-body {
+    /* 卡片內文區 */
+    padding: 1.5rem;
+}
+.recipe-card .recipe-description {
+    /* 食譜敘述樣式 */
+    font-style: italic;
+    color: var(--light-text-color);
+    margin-bottom: 1.5rem;
+}
+
+.recipe-card .recipe-visuals {
+    /* 圖片與影片區 */
+    margin-bottom: 1.5rem;
+}
+.recipe-card .recipe-main-image {
+    /* 主圖樣式與互動 */
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+    max-height: 400px;
+    object-fit: cover;
+    border-radius: 12px;
+    margin-bottom: 1.5rem;
+    background-color: #f0f0f0;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+.recipe-card .recipe-main-image:hover {
+    transform: scale(1.02);
+}
+
+/* 圖片放大模態視窗 */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1001;
+    padding-top: 60px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.9);
+}
+.modal-content {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+}
+.close-button {
+    /* 關閉按鈕位置與效果 */
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+    cursor: pointer;
+}
+.close-button:hover,
+.close-button:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.recipe-card .video-container {
+    /* 影片容器保持 16:9 比例 */
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+.recipe-card .video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.recipe-card .recipe-meta {
+    /* 食譜基本資訊如時間、份量 */
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 1rem;
+    background-color: var(--background-color);
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    font-size: 0.9rem;
+}
+.recipe-card .recipe-details {
+    /* 食材與調味料明細區 */
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-bottom: 1.5rem;
+}
+.recipe-card h4 {
+    /* 區塊小標題設定 */
+    color: var(--secondary-color);
+    border-bottom: 2px solid #e0e0e0;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+}
+.recipe-card ul, .recipe-card ol {
+    padding-left: 20px;
+    margin: 0;
+}
+.recipe-card li { margin-bottom: 0.75rem; }
+
+.steps-list ol {
+    /* 步驟列表去除預設點，改用計數器 */
+    list-style-type: none;
+    counter-reset: step-counter;
+    padding-left: 0;
+}
+.steps-list .step-item {
+    counter-increment: step-counter;
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+.steps-list .step-item::before {
+    /* 自訂步驟前標記圈 */
+    content: counter(step-counter);
+    background-color: var(--secondary-color);
+    color: white;
+    font-weight: bold;
+    min-width: 1.8em;
+    height: 1.8em;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.steps-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.steps-header h4 {
+    margin-bottom: 0; /* Adjust margin as it's now in a flex container */
+}
+
+.play-all-steps-btn {
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.play-all-steps-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
+}
+
+.play-all-steps-btn i {
+    font-size: 1.1rem;
+}
+
+
+.speak-btn {
+    /* 語音朗讀按鈕樣式 */
+    background: none;
+    border: none;
+    color: var(--secondary-color);
+    cursor: pointer;
+    font-size: 1.3rem;
+    padding: 0.5rem;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+    margin-left: auto;
+}
+.speak-btn:hover {
+    background-color: #f0ebf9;
+    color: #4527a0;
+}
+
+.recipe-card .chef-tip {
+    /* 主廚提示區樣式 */
+    margin-top: 1.5rem;
+    background: #e9f7ef;
+    padding: 1rem;
+    border-radius: 8px;
+    border-left: 4px solid #28a745;
+}
+
+.loader-overlay {
+    /* 載入遮罩容器 */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(5px);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 1000;
+}
+.loader {
+    /* 轉圈圈動畫樣式 */
+    border: 8px solid #f3f3f3;
+    border-top: 8px solid var(--primary-color);
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spin 1s linear infinite;
+}
+#loader-text {
+    /* 載入文字樣式 */
+    margin-top: 1rem;
+    font-size: 1.2rem;
+    color: var(--text-color);
+}
+
+@keyframes spin {
+    /* 轉圈動畫 */
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes fadeIn {
+    /* 淡入動畫 */
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- RWD Media Queries --- */
+@media (max-width: 768px) {
+    body {
+        padding: 1rem; /* 縮小網頁邊距 */
+    }
+
+    .card {
+        padding: 1.5rem; /* 縮小卡片內距 */
+    }
+
+    #image-uploader {
+        flex-direction: column; /* 在小螢幕上垂直排列上傳區塊 */
+        align-items: center;
+    }
+
+    .upload-slot {
+        width: 120px; /* 縮小上傳框大小 */
+        height: 120px;
+    }
+
+    .button-group {
+        flex-direction: column; /* 按鈕垂直堆疊 */
+        gap: 0.75rem;
+    }
+
+    .ingredient-selection-container {
+        flex-direction: column; /* 食材選擇區垂直堆疊 */
+        gap: 1.5rem;
+    }
+
+    .identified-ingredients, .extra-ingredients {
+        min-width: unset; /* 移除最小寬度限制 */
+        width: 100%;
+    }
+
+    #recipe-results-grid {
+        grid-template-columns: 1fr; /* 在小螢幕上單列顯示食譜卡片 */
+        gap: 1.5rem;
+    }
+
+    .recipe-card h3 {
+        font-size: 1.1rem; /* 縮小食譜標題字體 */
+        padding: 0.8rem 1rem;
+    }
+
+    .recipe-card .recipe-meta {
+        flex-direction: column; /* 食譜資訊垂直堆疊 */
+        gap: 0.75rem;
+    }
+
+    .recipe-card .recipe-details {
+        grid-template-columns: 1fr; /* 食材與調味料明細單列顯示 */
+        gap: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    header h1 {
+        font-size: 1.8rem; /* 更小的標題字體 */
+    }
+
+    header p {
+        font-size: 1rem; /* 更小的小標字體 */
+    }
+
+    .btn {
+        padding: 0.8rem; /* 縮小按鈕內距 */
+        font-size: 1rem;
+    }
+}
